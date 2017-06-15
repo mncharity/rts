@@ -113,6 +113,20 @@ else()
   endif()
 endif()
 
+# -march
+# -DMARCH=native  Permit any instructions supported by the local cpu.
+# -DMARCH=OFF     Don't set -march.
+# Doesn't affect MSVC.
+set(MARCH "native" CACHE STRING "-march=MARCH {OFF,native,...}")
+if(MARCH)
+  if(NOT MSVC)
+    CHECK_CXX_COMPILER_FLAG("-march=native" CXX_SUPPORTS_MARCH)
+    if(CXX_SUPPORTS_MARCH)
+      add_compile_options("-march=${MARCH}")
+    endif()
+  endif()
+endif()
+
 # use avx or not
 OPTION(ENABLE_AVX "-mavx or -mno-avx" ON)
 if (ENABLE_AVX)
