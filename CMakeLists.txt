@@ -127,6 +127,12 @@ if(MARCH)
   endif()
 endif()
 
+# for development
+set(COMPILE_OPTIONS "" CACHE STRING "Add compile options")
+if(COMPILE_OPTIONS)
+  add_compile_options("${COMPILE_OPTIONS}")
+endif()
+
 # AVX
 set(ENABLE_AVX "" CACHE STRING "{-mavx,-mno-avx,default} is {ON,OFF,\"\"}")
 set_property(CACHE ENABLE_AVX PROPERTY STRINGS ON OFF "")
